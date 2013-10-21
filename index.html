@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>POP!</title>
+<link href='http://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="FeedEk/js/FeedEk.js"></script>
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<style>
+body{
+  font-family: 'Carrois Gothic', sans-serif;
+}
+
+#title{
+  margin: 25px 0px 0px 25px;
+}
+
+#holder {
+  font-size: 32px;
+  line-height: 80px;
+  margin-top: 10%;
+}
+
+.feedEkList{list-style:none outside none; }
+.feedEkList li{padding:5px;}
+.feedEkList li:last-child{border-bottom:none;}
+.itemTitle a{font-weight:bold; color:#ffffff !important; text-decoration:none }
+</style>
+</head>
+<body>
+<h1 id="title"></h1>
+<div id="holder"></div>
+<script src="rss_feeds.js"></script>
+<script>
+var current = 0;
+
+function loop() {
+
+    $('body').css("background-color", feeds[current].hex);
+
+    $('#title').html(feeds[current].header);
+    
+    $('#holder').FeedEk({
+      FeedUrl : feeds[current].feed_url,
+      MaxCount : 1,
+      ShowDesc : false,
+      ShowPubDate:false,
+      DescCharacterLimit:100,
+      TitleLinkTarget:'_blank'
+    });
+
+    if (current == feeds.length - 1) {
+      current = 0;
+    }
+    else {
+      current += 1;
+    }
+
+    setTimeout(loop,5000);
+};
+
+loop();
+  
+
+
+
+</script>
+</body>
+</html>
